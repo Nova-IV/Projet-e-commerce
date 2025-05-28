@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Pomme",
+      "description": "Pomme fraîche et juteuse.",
+      "price": 1.20,
+      "image": "assets/images/pomme.jpg",
+      "category": "Fruits"
+    },
+    {
+      "id": 2,
+      "name": "Pain",
+      "description": "Pain artisanal fait maison.",
+      "price": 2.50,
+      "image": "assets/images/pain.jpg",
+      "category": "Boulangerie"
+    },
+    {
+      "id": 3,
+      "name": "Lait",
+      "description": "Lait entier frais.",
+      "price": 1.00,
+      "image": "assets/images/lait.jpg",
+      "category": "Produits laitiers"
+    },
+    {
+      "id": 4,
+      "name": "Oeufs",
+      "description": "Oeufs bio de poules élevées en plein air.",
+      "price": 3.00,
+      "image": "assets/images/oeufs.jpg",
+      "category": "Produits laitiers"
+    },
+    {
+      "id": 5,
+      "name": "Tomate",
+      "description": "Tomates mûres et savoureuses.",
+      "price": 2.00,
+      "image": "assets/images/tomate.jpg",
+      "category": "Légumes"
+    }
+  ]
+}

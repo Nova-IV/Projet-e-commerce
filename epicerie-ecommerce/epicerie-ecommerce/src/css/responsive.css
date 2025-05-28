@@ -1,0 +1,58 @@
+
+
+@media (max-width: 1200px) {
+    /* Styles for tablets and smaller devices */
+    body {
+        font-size: 14px;
+    }
+    .container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Styles for mobile devices */
+    .header {
+        text-align: center;
+    }
+    .product {
+        flex-direction: column;
+    }
+    .nav {
+        display: block;
+    }
+}
+
+/* Styles for the login and registration pages */
+.login-container, .register-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.login-container h2, .register-container h2 {
+    text-align: center;
+}
+
+.login-container input, .register-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.login-container button, .register-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container button:hover, .register-container button:hover {
+    background-color: #218838;
+}
