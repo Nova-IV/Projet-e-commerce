@@ -18,5 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Add other initialization code here
+    
 });
