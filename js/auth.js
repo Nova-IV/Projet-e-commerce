@@ -1,4 +1,3 @@
-// filepath: /epicerie-ecommerce/epicerie-ecommerce/src/js/auth.js
 // auth.js
 
 let users = [];
