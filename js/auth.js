@@ -8,20 +8,17 @@ class AuthManager {
     }
 
     init() {
-        // Vérifier si un utilisateur est déjà connecté (stockage en mémoire pour cette session)
         this.checkAuthStatus();
         this.bindEvents();
     }
 
     checkAuthStatus() {
-        // Pour cette démo, on simule un état de connexion
-        // Dans un vrai projet, vous vérifieriez avec un token ou session
+       
         this.isLoggedIn = false;
         this.updateUI();
     }
 
     bindEvents() {
-        // Événements pour les modales d'authentification
         document.addEventListener('DOMContentLoaded', () => {
             this.setupLoginModal();
             this.setupRegisterModal();
@@ -30,11 +27,9 @@ class AuthManager {
     }
 
     setupLoginModal() {
-        // Créer la modale de connexion
         const loginModal = this.createLoginModal();
         document.body.appendChild(loginModal);
 
-        // Événement pour ouvrir la modale de connexion
         const loginTriggers = document.querySelectorAll('[data-action="login"]');
         loginTriggers.forEach(trigger => {
             trigger.addEventListener('click', (e) => {
@@ -45,11 +40,9 @@ class AuthManager {
     }
 
     setupRegisterModal() {
-        // Créer la modale d'inscription
         const registerModal = this.createRegisterModal();
         document.body.appendChild(registerModal);
 
-        // Événement pour ouvrir la modale d'inscription
         const registerTriggers = document.querySelectorAll('[data-action="register"]');
         registerTriggers.forEach(trigger => {
             trigger.addEventListener('click', (e) => {
@@ -60,7 +53,6 @@ class AuthManager {
     }
 
     setupUserMenu() {
-        // Gestion du menu utilisateur (dropdown)
         const userMenuTrigger = document.querySelector('.user-menu-trigger');
         const userDropdown = document.querySelector('.user-dropdown');
 
@@ -70,7 +62,6 @@ class AuthManager {
                 userDropdown.classList.toggle('show');
             });
 
-            // Fermer le dropdown en cliquant ailleurs
             document.addEventListener('click', (e) => {
                 if (!userMenuTrigger.contains(e.target)) {
                     userDropdown.classList.remove('show');
@@ -117,7 +108,6 @@ class AuthManager {
             </div>
         `;
 
-        // Événements pour cette modale
         modal.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal-overlay') || e.target.hasAttribute('data-close-modal')) {
                 this.hideLoginModal();
@@ -182,7 +172,6 @@ class AuthManager {
             </div>
         `;
 
-        // Événements pour cette modale
         modal.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal-overlay') || e.target.hasAttribute('data-close-modal')) {
                 this.hideRegisterModal();
@@ -240,13 +229,10 @@ class AuthManager {
         const password = formData.get('loginPassword') || form.querySelector('#loginPassword').value;
 
         try {
-            // Simulation d'une requête de connexion
             this.showLoadingState(form);
             
-            // Simuler un délai de connexion
             await new Promise(resolve => setTimeout(resolve, 1000));
             
-            // Simulation de validation des credentials
             if (this.validateCredentials(email, password)) {
                 this.currentUser = {
                     id: Date.now(),
@@ -275,7 +261,6 @@ class AuthManager {
         const password = formData.get('registerPassword') || form.querySelector('#registerPassword').value;
         const confirmPassword = formData.get('confirmPassword') || form.querySelector('#confirmPassword').value;
 
-        // Validation des mots de passe
         if (password !== confirmPassword) {
             this.showErrorMessage('Les mots de passe ne correspondent pas.');
             return;
@@ -284,7 +269,6 @@ class AuthManager {
         try {
             this.showLoadingState(form);
             
-            // Simuler un délai d'inscription
             await new Promise(resolve => setTimeout(resolve, 1500));
             
             // Simulation de création de compte
