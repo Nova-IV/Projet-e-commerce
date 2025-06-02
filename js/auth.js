@@ -271,7 +271,6 @@ class AuthManager {
             
             await new Promise(resolve => setTimeout(resolve, 1500));
             
-            // Simulation de création de compte
             this.currentUser = {
                 id: Date.now(),
                 name: name,
@@ -290,7 +289,6 @@ class AuthManager {
     }
 
     validateCredentials(email, password) {
-        // Simulation de validation - remplacez par votre logique réelle
         return email.includes('@') && password.length >= 6;
     }
 
@@ -302,12 +300,10 @@ class AuthManager {
     }
 
     updateUI() {
-        // Mettre à jour l'interface utilisateur selon l'état de connexion
         const signUpLink = document.querySelector('a[href="#signup"]');
         const userSection = document.querySelector('.nav-right');
 
         if (this.isLoggedIn && this.currentUser) {
-            // Utilisateur connecté
             if (signUpLink) {
                 signUpLink.textContent = this.currentUser.name;
                 signUpLink.href = '#profile';
@@ -317,7 +313,6 @@ class AuthManager {
                 };
             }
         } else {
-            // Utilisateur non connecté
             if (signUpLink) {
                 signUpLink.textContent = 'Sign Up';
                 signUpLink.href = '#signup';
@@ -330,7 +325,6 @@ class AuthManager {
     }
 
     showUserMenu() {
-        // Afficher un menu déroulant pour l'utilisateur connecté
         const existingDropdown = document.querySelector('.user-dropdown');
         if (existingDropdown) {
             existingDropdown.remove();
@@ -388,7 +382,6 @@ class AuthManager {
     }
 
     showNotification(message, type = 'info') {
-        // Supprimer les notifications existantes
         const existingNotifications = document.querySelectorAll('.auth-notification');
         existingNotifications.forEach(notification => notification.remove());
 
@@ -398,12 +391,10 @@ class AuthManager {
 
         document.body.appendChild(notification);
 
-        // Animation d'apparition
         setTimeout(() => {
             notification.classList.add('show');
         }, 100);
 
-        // Suppression automatique après 3 secondes
         setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => {
@@ -415,7 +406,6 @@ class AuthManager {
     }
 }
 
-// Styles CSS pour les modales et notifications (à ajouter à votre CSS)
 const authStyles = `
     .auth-modal {
         display: none;
