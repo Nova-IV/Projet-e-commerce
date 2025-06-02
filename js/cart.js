@@ -1,22 +1,17 @@
-// filepath: c:\Cours HTML\Projet e-commerce\epicerie-ecommerce\src\js\cart.js
 // cart.js
 
-// Initialize the shopping cart
 let cart = [];
 
-// Function to add an item to the cart
 function addToCart(product) {
     cart.push(product);
     updateCartDisplay();
 }
 
-// Function to remove an item from the cart
 function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId);
     updateCartDisplay();
 }
 
-// Function to update the cart display
 function updateCartDisplay() {
     const cartContainer = document.getElementById('cart-container');
     cartContainer.innerHTML = ''; // Clear the current cart display
@@ -33,10 +28,8 @@ function updateCartDisplay() {
     cartContainer.appendChild(totalElement);
 }
 
-// Function to get cart items
 function getCartItems() {
     return cart;
 }
 
-// Export functions for use in other modules
 export { addToCart, removeFromCart, getCartItems };

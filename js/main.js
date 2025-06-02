@@ -1,8 +1,6 @@
-// filepath: c:\Cours HTML\Projet e-commerce\epicerie-ecommerce\src\js\main.js
 document.addEventListener('DOMContentLoaded', () => {
     console.log('E-commerce site loaded successfully.');
 
-    // Add event listeners for login and registration
     const loginButton = document.getElementById('login-button');
     const registerButton = document.getElementById('register-button');
 

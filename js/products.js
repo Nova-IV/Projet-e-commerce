@@ -1,4 +1,3 @@
-// filepath: c:\Cours HTML\Projet e-commerce\epicerie-ecommerce\src\js\products.js
 
 // Sample product data
 const products = [

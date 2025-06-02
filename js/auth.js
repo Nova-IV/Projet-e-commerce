@@ -10,7 +10,6 @@ function registerUser(username, password) {
     console.log(`User registered: ${username}`);
 }
 
-// Function to login a user
 function loginUser(username, password) {
     const user = users.find(user => user.username === username && user.password === password);
     if (user) {
@@ -22,6 +21,5 @@ function loginUser(username, password) {
     }
 }
 
-// Simulate user registration and login for demonstration
 registerUser('testUser', 'password123');
 loginUser('testUser', 'password123');
