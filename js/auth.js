@@ -1,420 +1,228 @@
-// auth.js - Gestion de l'authentification pour Exclusive Cosmetics
+// auth.js - Gestion de l'authentification
 
-class AuthManager {
-    constructor() {
-        this.currentUser = null;
-        this.isLoggedIn = false;
-        this.init();
+// Données simulées pour les utilisateurs (en production, ceci serait géré par un backend)
+let users = JSON.parse(localStorage.getItem('exclusive_users')) || [];
+let currentUser = JSON.parse(localStorage.getItem('exclusive_current_user')) || null;
+
+// Fonction d'initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAuth();
+});
+
+function initializeAuth() {
+    // Vérifier si on est sur la page de connexion
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
     }
 
-    init() {
-        this.checkAuthStatus();
-        this.bindEvents();
+    // Vérifier si on est sur la page d'inscription
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
     }
 
-    checkAuthStatus() {
-       
-        this.isLoggedIn = false;
-        this.updateUI();
+    // Gestion du bouton Google
+    const googleBtn = document.querySelector('.auth-btn.google');
+    if (googleBtn) {
+        googleBtn.addEventListener('click', handleGoogleAuth);
     }
 
-    bindEvents() {
-        document.addEventListener('DOMContentLoaded', () => {
-            this.setupLoginModal();
-            this.setupRegisterModal();
-            this.setupUserMenu();
-        });
+    // Mise à jour de l'interface si l'utilisateur est connecté
+    updateAuthInterface();
+}
+
+// Gestion de la connexion
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    // Validation des champs
+    if (!email || !password) {
+        showNotification('Veuillez remplir tous les champs', 'error');
+        return;
     }
 
-    setupLoginModal() {
-        const loginModal = this.createLoginModal();
-        document.body.appendChild(loginModal);
-
-        const loginTriggers = document.querySelectorAll('[data-action="login"]');
-        loginTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showLoginModal();
-            });
-        });
-    }
-
-    setupRegisterModal() {
-        const registerModal = this.createRegisterModal();
-        document.body.appendChild(registerModal);
-
-        const registerTriggers = document.querySelectorAll('[data-action="register"]');
-        registerTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showRegisterModal();
-            });
-        });
-    }
-
-    setupUserMenu() {
-        const userMenuTrigger = document.querySelector('.user-menu-trigger');
-        const userDropdown = document.querySelector('.user-dropdown');
-
-        if (userMenuTrigger && userDropdown) {
-            userMenuTrigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                userDropdown.classList.toggle('show');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!userMenuTrigger.contains(e.target)) {
-                    userDropdown.classList.remove('show');
-                }
-            });
-        }
-    }
-
-    createLoginModal() {
-        const modal = document.createElement('div');
-        modal.className = 'auth-modal';
-        modal.id = 'loginModal';
-        modal.innerHTML = `
-            <div class="modal-overlay">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2>Se connecter</h2>
-                        <button class="modal-close" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="loginForm" class="auth-form">
-                            <div class="form-group">
-                                <label for="loginEmail">Email</label>
-                                <input type="email" id="loginEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="loginPassword">Mot de passe</label>
-                                <input type="password" id="loginPassword" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="rememberMe">
-                                    Se souvenir de moi
-                                </label>
-                            </div>
-                            <button type="submit" class="auth-btn">Se connecter</button>
-                            <div class="auth-links">
-                                <a href="#" data-action="forgot-password">Mot de passe oublié ?</a>
-                                <span>Pas de compte ? <a href="#" data-action="show-register">S'inscrire</a></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        modal.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-overlay') || e.target.hasAttribute('data-close-modal')) {
-                this.hideLoginModal();
-            }
-            if (e.target.hasAttribute('data-action') && e.target.getAttribute('data-action') === 'show-register') {
-                e.preventDefault();
-                this.hideLoginModal();
-                this.showRegisterModal();
-            }
-        });
-
-        modal.querySelector('#loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleLogin(e.target);
-        });
-
-        return modal;
-    }
-
-    createRegisterModal() {
-        const modal = document.createElement('div');
-        modal.className = 'auth-modal';
-        modal.id = 'registerModal';
-        modal.innerHTML = `
-            <div class="modal-overlay">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2>S'inscrire</h2>
-                        <button class="modal-close" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="registerForm" class="auth-form">
-                            <div class="form-group">
-                                <label for="registerName">Nom complet</label>
-                                <input type="text" id="registerName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="registerEmail">Email</label>
-                                <input type="email" id="registerEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="registerPassword">Mot de passe</label>
-                                <input type="password" id="registerPassword" required minlength="6">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmPassword">Confirmer le mot de passe</label>
-                                <input type="password" id="confirmPassword" required minlength="6">
-                            </div>
-                            <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="acceptTerms" required>
-                                    J'accepte les <a href="#" target="_blank">conditions d'utilisation</a>
-                                </label>
-                            </div>
-                            <button type="submit" class="auth-btn">S'inscrire</button>
-                            <div class="auth-links">
-                                <span>Déjà un compte ? <a href="#" data-action="show-login">Se connecter</a></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        modal.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-overlay') || e.target.hasAttribute('data-close-modal')) {
-                this.hideRegisterModal();
-            }
-            if (e.target.hasAttribute('data-action') && e.target.getAttribute('data-action') === 'show-login') {
-                e.preventDefault();
-                this.hideRegisterModal();
-                this.showLoginModal();
-            }
-        });
-
-        modal.querySelector('#registerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleRegister(e.target);
-        });
-
-        return modal;
-    }
-
-    showLoginModal() {
-        const modal = document.getElementById('loginModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    hideLoginModal() {
-        const modal = document.getElementById('loginModal');
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    }
-
-    showRegisterModal() {
-        const modal = document.getElementById('registerModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    hideRegisterModal() {
-        const modal = document.getElementById('registerModal');
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    }
-
-    async handleLogin(form) {
-        const formData = new FormData(form);
-        const email = formData.get('loginEmail') || form.querySelector('#loginEmail').value;
-        const password = formData.get('loginPassword') || form.querySelector('#loginPassword').value;
-
-        try {
-            this.showLoadingState(form);
-            
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            if (this.validateCredentials(email, password)) {
-                this.currentUser = {
-                    id: Date.now(),
-                    name: 'Utilisateur Demo',
-                    email: email
-                };
-                this.isLoggedIn = true;
-                this.hideLoginModal();
-                this.updateUI();
-                this.showSuccessMessage('Connexion réussie !');
-            } else {
-                this.showErrorMessage('Email ou mot de passe incorrect.');
-            }
-        } catch (error) {
-            console.error('Erreur de connexion:', error);
-            this.showErrorMessage('Une erreur est survenue. Veuillez réessayer.');
-        } finally {
-            this.hideLoadingState(form);
-        }
-    }
-
-    async handleRegister(form) {
-        const formData = new FormData(form);
-        const name = formData.get('registerName') || form.querySelector('#registerName').value;
-        const email = formData.get('registerEmail') || form.querySelector('#registerEmail').value;
-        const password = formData.get('registerPassword') || form.querySelector('#registerPassword').value;
-        const confirmPassword = formData.get('confirmPassword') || form.querySelector('#confirmPassword').value;
-
-        if (password !== confirmPassword) {
-            this.showErrorMessage('Les mots de passe ne correspondent pas.');
-            return;
-        }
-
-        try {
-            this.showLoadingState(form);
-            
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            this.currentUser = {
-                id: Date.now(),
-                name: name,
-                email: email
-            };
-            this.isLoggedIn = true;
-            this.hideRegisterModal();
-            this.updateUI();
-            this.showSuccessMessage('Inscription réussie ! Bienvenue !');
-        } catch (error) {
-            console.error('Erreur d\'inscription:', error);
-            this.showErrorMessage('Une erreur est survenue. Veuillez réessayer.');
-        } finally {
-            this.hideLoadingState(form);
-        }
-    }
-
-    validateCredentials(email, password) {
-        return email.includes('@') && password.length >= 6;
-    }
-
-    logout() {
-        this.currentUser = null;
-        this.isLoggedIn = false;
-        this.updateUI();
-        this.showSuccessMessage('Déconnexion réussie !');
-    }
-
-    updateUI() {
-        const signUpLink = document.querySelector('a[href="#signup"]');
-        const userSection = document.querySelector('.nav-right');
-
-        if (this.isLoggedIn && this.currentUser) {
-            if (signUpLink) {
-                signUpLink.textContent = this.currentUser.name;
-                signUpLink.href = '#profile';
-                signUpLink.onclick = (e) => {
-                    e.preventDefault();
-                    this.showUserMenu();
-                };
-            }
-        } else {
-            if (signUpLink) {
-                signUpLink.textContent = 'Sign Up';
-                signUpLink.href = '#signup';
-                signUpLink.onclick = (e) => {
-                    e.preventDefault();
-                    this.showRegisterModal();
-                };
-            }
-        }
-    }
-
-    showUserMenu() {
-        const existingDropdown = document.querySelector('.user-dropdown');
-        if (existingDropdown) {
-            existingDropdown.remove();
-        }
-
-        const dropdown = document.createElement('div');
-        dropdown.className = 'user-dropdown';
-        dropdown.innerHTML = `
-            <div class="dropdown-content">
-                <a href="#profile">Mon profil</a>
-                <a href="#orders">Mes commandes</a>
-                <a href="#wishlist">Ma liste de souhaits</a>
-                <hr>
-                <a href="#" data-action="logout">Se déconnecter</a>
-            </div>
-        `;
-
-        dropdown.addEventListener('click', (e) => {
-            if (e.target.hasAttribute('data-action') && e.target.getAttribute('data-action') === 'logout') {
-                e.preventDefault();
-                this.logout();
-                dropdown.remove();
-            }
-        });
-
-        const userSection = document.querySelector('.nav-right');
-        if (userSection) {
-            userSection.appendChild(dropdown);
-        }
-    }
-
-    showLoadingState(form) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        if (submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Chargement...';
-        }
-    }
-
-    hideLoadingState(form) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        if (submitBtn) {
-            submitBtn.disabled = false;
-            const isLogin = form.id === 'loginForm';
-            submitBtn.textContent = isLogin ? 'Se connecter' : 'S\'inscrire';
-        }
-    }
-
-    showSuccessMessage(message) {
-        this.showNotification(message, 'success');
-    }
-
-    showErrorMessage(message) {
-        this.showNotification(message, 'error');
-    }
-
-    showNotification(message, type = 'info') {
-        const existingNotifications = document.querySelectorAll('.auth-notification');
-        existingNotifications.forEach(notification => notification.remove());
-
-        const notification = document.createElement('div');
-        notification.className = `auth-notification ${type}`;
-        notification.textContent = message;
-
-        document.body.appendChild(notification);
-
+    // Vérification des identifiants
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        // Connexion réussie
+        currentUser = { ...user };
+        delete currentUser.password; // Ne pas stocker le mot de passe
+        localStorage.setItem('exclusive_current_user', JSON.stringify(currentUser));
+        
+        showNotification('Connexion réussie ! Redirection...', 'success');
+        
+        // Redirection après 1.5 secondes
         setTimeout(() => {
-            notification.classList.add('show');
-        }, 100);
-
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
-            }, 300);
-        }, 3000);
+            window.location.href = '../index.html';
+        }, 1500);
+    } else {
+        showNotification('Email ou mot de passe incorrect', 'error');
     }
 }
 
+// Gestion de l'inscription
+function handleRegister(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
 
-// Initialiser le gestionnaire d'authentification
-const authManager = new AuthManager();
+    // Validation des champs
+    if (!name || !email || !password) {
+        showNotification('Veuillez remplir tous les champs', 'error');
+        return;
+    }
 
-// Exporter pour utilisation dans d'autres fichiers
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = AuthManager;
+    // Validation de l'email
+    if (!isValidEmail(email)) {
+        showNotification('Veuillez entrer une adresse email valide', 'error');
+        return;
+    }
+
+    // Validation du mot de passe
+    if (password.length < 6) {
+        showNotification('Le mot de passe doit contenir au moins 6 caractères', 'error');
+        return;
+    }
+
+    // Vérifier si l'utilisateur existe déjà
+    const existingUser = users.find(u => u.email === email);
+    if (existingUser) {
+        showNotification('Un compte avec cet email existe déjà', 'error');
+        return;
+    }
+
+    // Créer le nouvel utilisateur
+    const newUser = {
+        id: Date.now(),
+        name: name,
+        email: email,
+        password: password,
+        createdAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+    localStorage.setItem('exclusive_users', JSON.stringify(users));
+
+    // Connecter automatiquement l'utilisateur
+    currentUser = { ...newUser };
+    delete currentUser.password;
+    localStorage.setItem('exclusive_current_user', JSON.stringify(currentUser));
+
+    showNotification('Compte créé avec succès ! Redirection...', 'success');
+    
+    // Redirection après 1.5 secondes
+    setTimeout(() => {
+        window.location.href = '../index.html';
+    }, 1500);
 }
 
-// Rendre disponible globalement
-window.AuthManager = AuthManager;
-window.authManager = authManager;
+// Gestion de l'authentification Google (simulation)
+function handleGoogleAuth() {
+    showNotification('Authentification Google simulée...', 'info');
+    
+    // Simulation d'une connexion Google
+    setTimeout(() => {
+        const googleUser = {
+            id: Date.now(),
+            name: 'Utilisateur Google',
+            email: 'user@gmail.com',
+            provider: 'google',
+            createdAt: new Date().toISOString()
+        };
+
+        currentUser = googleUser;
+        localStorage.setItem('exclusive_current_user', JSON.stringify(currentUser));
+        
+        showNotification('Connexion Google réussie ! Redirection...', 'success');
+        
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 1500);
+    }, 1000);
+}
+
+// Fonction de déconnexion
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('exclusive_current_user');
+    showNotification('Vous avez été déconnecté', 'info');
+    updateAuthInterface();
+}
+
+// Mise à jour de l'interface d'authentification
+function updateAuthInterface() {
+    // Cette fonction peut être appelée depuis d'autres pages pour mettre à jour l'interface
+    const authButtons = document.querySelectorAll('.auth-status');
+    
+    if (currentUser) {
+        authButtons.forEach(btn => {
+            btn.innerHTML = `
+                <span>Bonjour, ${currentUser.name}</span>
+                <button onclick="logout()" class="logout-btn">Déconnexion</button>
+            `;
+        });
+    }
+}
+
+// Fonction utilitaire pour valider l'email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Fonction pour afficher les notifications
+function showNotification(message, type = 'info') {
+    // Supprimer les notifications existantes
+    const existingNotification = document.querySelector('.auth-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Créer la nouvelle notification
+    const notification = document.createElement('div');
+    notification.className = `auth-notification ${type}`;
+    notification.textContent = message;
+
+    // Ajouter au DOM
+    document.body.appendChild(notification);
+
+    // Afficher avec animation
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+
+    // Masquer après 4 secondes
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
+    }, 4000);
+}
+
+// Fonction pour obtenir l'utilisateur actuel
+function getCurrentUser() {
+    return currentUser;
+}
+
+// Fonction pour vérifier si l'utilisateur est connecté
+function isLoggedIn() {
+    return currentUser !== null;
+}
+
+// Exportation des fonctions pour utilisation dans d'autres fichiers
+window.authModule = {
+    getCurrentUser,
+    isLoggedIn,
+    logout,
+    showNotification
+};
