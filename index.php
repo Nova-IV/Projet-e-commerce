@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <!-- Top Bar -->
+    
     <div class="top-bar">
         <div class="container">
             mettre un titre en cas de promos | ShopNow | English ▼
         </div>
     </div>
 
-    <!-- Header -->
+   
     <header class="header">
         <div class="container">
             <div class="nav-wrapper">
