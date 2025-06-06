@@ -36,11 +36,11 @@
             <h2>Connexion / Inscription</h2>
             <div>
                 <h3>Déjà un compte ?</h3>
-                <a href="login.html">Se connecter</a>
+                <a href="login.php">Se connecter</a>
             </div>
             <div>
                 <h3>Nouveau ici ?</h3>
-                <a href="register.html">Créer un compte</a>
+                <a href="register.php">Créer un compte</a>
             </div>
         </section>
     </main>

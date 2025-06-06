@@ -14,10 +14,10 @@
             <div class="nav-wrapper">
                 <div class="logo">Exclusive</div>
                 <nav class="nav-menu">
-                    <a href="../index.html">Home</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="about.html">About</a>
-                    <a href="register.html">Sign Up</a>
+                    <a href="../index.php">Home</a>
+                    <a href="contact.php">Contact</a>
+                    <a href="about.php">About</a>
+                    <a href="register.php">Sign Up</a>
                 </nav>
                 <div class="nav-right">
                     <div class="search-box">
@@ -133,4 +133,4 @@
 
     <script src="../js/auth.js"></script>
 </body>
-</html>
+</html>php

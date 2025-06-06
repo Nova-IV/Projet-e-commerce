@@ -23,9 +23,9 @@
                 <nav>
                     <ul class="nav-menu">
                         <li><a href="#home">Home</a></li>
-                        <li><a href="pages/contact.html">Contact</a></li>
+                        <li><a href="pages/contact.php">Contact</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="pages/register.html">Sign Up</a></li>
+                        <li><a href="pages/register.php">Sign Up</a></li>
                     </ul>
                 </nav>
                 <div class="nav-right">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="nav-icons">
                         <span>🤍</span>
-                        <span onclick="window.location.href='pages/cart.html'">🛒</span>
+                        <span onclick="window.location.href='pages/cart.php'">🛒</span>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                 <div class="product-grid" id="flash-products">
                 </div>
 
-                <button class="view-all-btn" onclick="window.location.href='pages/products.html'">View All Products</button>
+                <button class="view-all-btn" onclick="window.location.href='pages/products.php'">View All Products</button>
             </section>
 
             <!-- Categories -->
@@ -142,7 +142,6 @@
                 </div>
 
                 <div class="product-grid" id="best-selling-products">
-                    <!-- Les produits seront chargés par JavaScript -->
                 </div>
             </section>
 
@@ -226,10 +225,10 @@
                 <div class="footer-section">
                     <h3>Account</h3>
                     <ul>
-                        <li><a href="pages/login.html">My Account</a></li>
-                        <li><a href="pages/login.html">Login / Register</a></li>
-                        <li><a href="pages/cart.html">Cart</a></li>
-                        <li><a href="pages/products.html">Shop</a></li>
+                        <li><a href="pages/login.php">My Account</a></li>
+                        <li><a href="pages/login.php">Login / Register</a></li>
+                        <li><a href="pages/cart.php">Cart</a></li>
+                        <li><a href="pages/products.php">Shop</a></li>
                     </ul>
                 </div>
                 
@@ -239,7 +238,7 @@
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms Of Use</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="pages/contact.html">Contact</a></li>
+                        <li><a href="pages/contact.php">Contact</a></li>
                     </ul>
                 </div>
                 

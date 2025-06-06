@@ -25,7 +25,7 @@
             <button type="submit">Envoyer</button>
         </form>
         <h2>Connexion</h2>
-        <form action="login.html" method="get">
+        <form action="login.php" method="get">
             <label for="login-email">Email:</label>
             <input type="email" id="login-email" name="login-email" required>
 
@@ -35,7 +35,7 @@
             <button type="submit">Se connecter</button>
         </form>
         <h2>Inscription</h2>
-        <form action="register.html" method="get">
+        <form action="register.php" method="get">
             <label for="register-name">Nom:</label>
             <input type="text" id="register-name" name="register-name" required>
 

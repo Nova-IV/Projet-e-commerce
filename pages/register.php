@@ -14,10 +14,10 @@
             <div class="nav-wrapper">
                 <div class="logo">Exclusive</div>
                 <nav class="nav-menu">
-                    <a href="../index.html">Home</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="about.html">About</a>
-                    <a href="register.html">Sign Up</a>
+                    <a href="../index.php">Home</a>
+                    <a href="contact.php">Contact</a>
+                    <a href="about.php">About</a>
+                    <a href="register.php">Sign Up</a>
                 </nav>
                 <div class="nav-right">
                     <div class="search-box">
@@ -38,7 +38,6 @@
                     <img src="../assets/register-image.jpg" alt="Smiling woman with curly hair">
                 </div>
 
-                <!-- Right Side - Form -->
                 <div class="auth-form-container">
                     <div class="auth-form-content">
                         <h1>Create an account</h1>
@@ -67,7 +66,7 @@
 
                             <div class="auth-footer">
                                 <span>Already have account?</span>
-                                <a href="login.html" class="auth-link">Log in</a>
+                                <a href="login.php" class="auth-link">Log in</a>
                             </div>
                         </form>
                     </div>

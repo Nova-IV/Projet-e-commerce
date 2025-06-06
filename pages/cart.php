@@ -1,4 +1,4 @@
-
+php
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,11 +13,11 @@
         <h1>Mon Panier</h1>
         <nav>
             <ul>
-                <li><a href="products.html">Produits</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Connexion</a></li>
-                <li><a href="register.html">Inscription</a></li>
+                <li><a href="products.php">Produits</a></li>
+                <li><a href="checkout.php">Checkout</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="login.php">Connexion</a></li>
+                <li><a href="register.php">Inscription</a></li>
             </ul>
         </nav>
     </header>
