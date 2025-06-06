@@ -29,11 +29,9 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="auth-main">
         <div class="container">
             <div class="auth-container">
-                <!-- Left Side - Image -->
                 <div class="auth-image">
                     <img src="../assets/register-image.jpg" alt="Smiling woman with curly hair">
                 </div>
