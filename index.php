@@ -145,7 +145,6 @@
                 </div>
             </section>
 
-            <!-- New Arrival -->
             <section class="new-arrival">
                 <div class="section-header">
                     <div class="section-title">
@@ -174,7 +173,6 @@
         </main>
     </div>
 
-    <!-- Features -->
     <section class="features-section">
         <div class="container">
             <div class="features-grid">
@@ -197,7 +195,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -260,7 +257,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="js/products.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/auth.js"></script>
