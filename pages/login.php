@@ -29,16 +29,13 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="auth-main">
         <div class="container">
             <div class="auth-container">
-                <!-- Left Side - Image -->
                 <div class="auth-image">
                     <img src="../assets/login-image.jpg" alt="Woman with perfume bottle">
                 </div>
 
-                <!-- Right Side - Form -->
                 <div class="auth-form-container">
                     <div class="auth-form-content">
                         <h1>Log in to Exclusive</h1>
