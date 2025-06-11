@@ -73,32 +73,27 @@ function handleRegister(e) {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
-    // Validation des champs
     if (!name || !email || !password) {
         showNotification('Veuillez remplir tous les champs', 'error');
         return;
     }
 
-    // Validation de l'email
     if (!isValidEmail(email)) {
         showNotification('Veuillez entrer une adresse email valide', 'error');
         return;
     }
 
-    // Validation du mot de passe
     if (password.length < 6) {
         showNotification('Le mot de passe doit contenir au moins 6 caractères', 'error');
         return;
     }
 
-    // Vérifier si l'utilisateur existe déjà
     const existingUser = users.find(u => u.email === email);
     if (existingUser) {
         showNotification('Un compte avec cet email existe déjà', 'error');
         return;
     }
 
-    // Créer le nouvel utilisateur
     const newUser = {
         id: Date.now(),
         name: name,
