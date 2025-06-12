@@ -26,7 +26,6 @@ class CartManager {
         return this.cartItems;
     }
 
-    // Supprimer un produit du panier
     removeItem(productId) {
         this.cartItems = this.cartItems.filter(item => item.id !== productId);
         this.updateCartDisplay();
@@ -34,7 +33,6 @@ class CartManager {
         return this.cartItems;
     }
 
-    // Mettre à jour la quantité d'un produit
     updateQuantity(productId, newQuantity) {
         const item = this.cartItems.find(item => item.id === productId);
         
