@@ -42,7 +42,6 @@ build/
 ehthumbs.db
 Thumbs.db
 
-# XAMPP specific
 xampp/
 
 # Backup files
