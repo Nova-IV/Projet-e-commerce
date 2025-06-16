@@ -44,12 +44,10 @@ Thumbs.db
 
 xampp/
 
-# Backup files
 *.bak
 *.backup
 *~
 
-# Compiled files
 *.com
 *.class
 *.dll
@@ -57,7 +55,6 @@ xampp/
 *.o
 *.so
 
-# Media and large files (if you want to exclude them)
 *.mp4
 *.tiff
 *.avi
