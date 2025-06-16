@@ -102,7 +102,6 @@
                 <button class="view-all-btn" onclick="window.location.href='pages/products.php'">View All Products</button>
             </section>
 
-            <!-- Categories -->
             <section class="categories-section">
                 <div class="section-header">
                     <div class="section-title">
@@ -131,7 +130,6 @@
                 </div>
             </section>
 
-            <!-- Best Selling Products -->
             <section class="flash-sales">
                 <div class="section-header">
                     <div class="section-title">
