@@ -1,15 +1,12 @@
-# Environment variables & configuration
 .env
 config.js
 api_keys.js
 constants.js
 
-# Dependencies
 node_modules/
 vendor/
 bower_components/
 
-# IDE - VSCode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -17,31 +14,26 @@ bower_components/
 !.vscode/extensions.json
 *.code-workspace
 
-# Logs
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# Cache directories
 .sass-cache/
 .cache/
 .temp/
 dist/
 build/
 
-# Database
 *.sqlite
 *.db
 
-# OS generated files
 .DS_Store
 .DS_Store?
 ._*
