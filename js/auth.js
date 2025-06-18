@@ -15,13 +15,11 @@ function initializeAuth() {
         loginForm.addEventListener('submit', handleLogin);
     }
 
-    // Vérifier si on est sur la page d'inscription
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
         registerForm.addEventListener('submit', handleRegister);
     }
 
-    // Gestion du bouton Google
     const googleBtn = document.querySelector('.auth-btn.google');
     if (googleBtn) {
         googleBtn.addEventListener('click', handleGoogleAuth);
