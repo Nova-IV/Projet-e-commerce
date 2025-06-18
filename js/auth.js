@@ -55,7 +55,6 @@ function handleLogin(e) {
         
         showNotification('Connexion réussie ! Redirection...', 'success');
         
-        // Redirection après 1.5 secondes
         setTimeout(() => {
             window.location.href = '../index.html';
         }, 1500);
