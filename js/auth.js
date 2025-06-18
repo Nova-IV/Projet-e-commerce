@@ -31,26 +31,23 @@ function initializeAuth() {
     updateAuthInterface();
 }
 
-// Gestion de la connexion
 function handleLogin(e) {
     e.preventDefault();
     
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
-    // Validation des champs
     if (!email || !password) {
         showNotification('Veuillez remplir tous les champs', 'error');
         return;
     }
 
-    // Vérification des identifiants
+    
     const user = users.find(u => u.email === email && u.password === password);
     
     if (user) {
-        // Connexion réussie
         currentUser = { ...user };
-        delete currentUser.password; // Ne pas stocker le mot de passe
+        delete currentUser.password; 
         localStorage.setItem('exclusive_current_user', JSON.stringify(currentUser));
         
         showNotification('Connexion réussie ! Redirection...', 'success');
@@ -63,7 +60,6 @@ function handleLogin(e) {
     }
 }
 
-// Gestion de l'inscription
 function handleRegister(e) {
     e.preventDefault();
     
