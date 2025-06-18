@@ -194,7 +194,6 @@ function showNotification(message, type = 'info') {
     }, 4000);
 }
 
-// Fonction pour obtenir l'utilisateur actuel
 function getCurrentUser() {
     return currentUser;
 }
