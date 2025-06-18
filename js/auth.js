@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeAuth() {
-    // Vérifier si on est sur la page de connexion
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);
@@ -185,7 +184,6 @@ function showNotification(message, type = 'info') {
         notification.classList.add('show');
     }, 100);
 
-    // Masquer après 4 secondes
     setTimeout(() => {
         notification.classList.remove('show');
         setTimeout(() => {
