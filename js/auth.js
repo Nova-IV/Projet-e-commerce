@@ -4,7 +4,6 @@
 let users = JSON.parse(localStorage.getItem('exclusive_users')) || [];
 let currentUser = JSON.parse(localStorage.getItem('exclusive_current_user')) || null;
 
-// Fonction d'initialisation
 document.addEventListener('DOMContentLoaded', function() {
     initializeAuth();
 });
