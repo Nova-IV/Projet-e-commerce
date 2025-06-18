@@ -27,7 +27,7 @@ function initializeAuth() {
         googleBtn.addEventListener('click', handleGoogleAuth);
     }
 
-    // Mise à jour de l'interface si l'utilisateur est connecté
+    
     updateAuthInterface();
 }
 
